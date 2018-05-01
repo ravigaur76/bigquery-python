@@ -57,3 +57,35 @@ for row in rows:
 
 ```
    
+#### Table operation in bigquery
+In bigquery we can manage dataset tables, including creating, deleting, checking the existence, and getting the metadata of tables.
+
+```
+# Listing tables
+dataset_ref = bigquery_client.dataset('dataset_name')
+tables = list(bigquery_client.list_tables(dataset_ref))
+for table in tables:
+    print(table)
+
+# fetch table refrence
+dataset = bigquery_client.dataset('dataset_name')
+table = dataset.table('table_name')
+
+# Check if a table exists
+print(table.exists()) #return True if table found
+
+# Delete an existing table
+print(table.delete()) #return True if table deleted
+
+# Create an empty table without a schema definition
+print(table.create())
+
+# Create an empty table with a schema definition
+schema = [
+    bigquery.SchemaField('full_name', 'STRING', mode='REQUIRED'),
+    bigquery.SchemaField('age', 'INTEGER', mode='REQUIRED'),
+]
+table_schema_ref = dataset.table(table_name, schema)
+print(table_schema_ref.create())
+
+```
