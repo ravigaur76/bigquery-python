@@ -67,7 +67,7 @@ tables = list(bigquery_client.list_tables(dataset_ref))
 for table in tables:
     print(table)
 
-# fetch table refrence
+# Fetch table refrence
 dataset = bigquery_client.dataset('dataset_name')
 table = dataset.table('table_name')
 
@@ -89,3 +89,25 @@ table_schema_ref = dataset.table(table_name, schema)
 print(table_schema_ref.create())
 
 ```
+
+#### Datasets operation in bigquery
+```
+# Fetch dataset refrence
+dataset_ref = bigquery_client.dataset(dataset_id)
+dataset = bigquery.Dataset(dataset_ref)
+
+# Creating a dataset
+dataset.location = 'US' # Specify the geographic location where the dataset should reside.
+dataset = bigquery_client.create_dataset(dataset)
+
+# Listing datasets
+datasets = list(bigquery_client.list_datasets())
+for dataset in datasets:
+  print('\t{}'.format(dataset.dataset_id))
+  
+# Delete a dataset that does not contain any tables
+bigquery_client.delete_dataset(dataset_ref)
+
+# Use the delete_contents parameter to delete a dataset and its tables
+client.delete_dataset(dataset_ref, delete_contents=True)
+  
