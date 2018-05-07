@@ -135,10 +135,10 @@ def wait_for_job(job):
 
 ```
 destination_uri = 'gs://{}/{}'.format(bucket_name, 'shakespeare.csv')
-dataset_ref = client.dataset(dataset_id, project=project)
+dataset_ref = bigquery_client.dataset(dataset_id, project=project)
 table_ref = dataset_ref.table(table_id)
 
-extract_job = client.extract_table(table_ref,destination_uri,
+extract_job = bigquery_client.extract_table(table_ref,destination_uri,
     # Location must match that of the source table.
     location='US')  # API request
 extract_job.result()  # Waits for job to complete.
